@@ -181,7 +181,7 @@ int decompress_jpeg(unsigned char *jpeg, int jpegsize, decompressed_image *image
         DBG("unsupported number of components (~colorspace)\n");
         return 1;
     }
-
+	//cinfo.num_components = 1;
     /* just use RGB output and adjust decompression parameters */
     cinfo.out_color_space = JCS_RGB;
     cinfo.quantize_colors = FALSE;

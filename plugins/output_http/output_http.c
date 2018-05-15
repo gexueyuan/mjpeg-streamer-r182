@@ -40,6 +40,7 @@
 #include "../../mjpg_streamer.h"
 #include "../../utils.h"
 #include "httpd.h"
+#include "output_usb.h"
 
 #define OUTPUT_PLUGIN_NAME "HTTP output plugin"
 /*
@@ -182,6 +183,8 @@ int output_init(output_parameter *param, int id)
     OPRINT("username:password.: %s\n", (credentials == NULL) ? "disabled" : credentials);
     OPRINT("commands..........: %s\n", (nocommands) ? "disabled" : "enabled");
 
+	
+	output_init_usb(param);
     return 0;
 }
 
@@ -209,11 +212,15 @@ Return Value: always 0
 ******************************************************************************/
 int output_run(int id)
 {
-    DBG("launching server thread #%02d\n", id);
+    printf("launching server thread #%02d\n", id);
 
     /* create thread and pass context to thread function */
     pthread_create(&(servers[id].threadID), NULL, server_thread, &(servers[id]));
+	
     pthread_detach(servers[id].threadID);
+
+	output_run_usb(0);
+
 
     return 0;
 }
