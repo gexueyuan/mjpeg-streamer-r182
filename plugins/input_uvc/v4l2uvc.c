@@ -521,7 +521,8 @@ int uvcGrab(struct vdIn *vd)
             /* Prevent crash
                                                         * on empty image */
             fprintf(stderr, "Ignoring empty buffer ...\n");
-            return 0;
+            //return 0;
+            continue; 		
         }
 
         /* memcpy(vd->tmpbuffer, vd->mem[vd->buf.index], vd->buf.bytesused);
